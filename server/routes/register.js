@@ -40,7 +40,7 @@ registerRouter.post('/', async (req, res) => {
         console.log('this is error', err)
         return res.status(500).json({ message: 'Error logging in after registration' });
       }
-      return res.status(201).json({ message: 'User registered and logged in', user: newUser });
+      return res.status(201).json({ message: 'User registered and logged in', redirectTo: '/home' });
     });
     
   } catch (error) {

@@ -1,0 +1,59 @@
+/* Sidebar.css */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidebar-header h1 {
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    margin-bottom: 30px;
+  }
+  
+  .sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .sidebar-links li {
+    margin-bottom: 20px;
+  }
+  
+  .sidebar-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sidebar-links li a i {
+    margin-right: 10px;
+    font-size: 22px;
+  }
+  
+  .sidebar-links li a:hover {
+    color: #1da1f2; /* Add a stylish hover effect */
+  }
+  
+  /* Make sure the sidebar takes the full height of the page */
+  .sidebar-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #333;
+  }
+  
+  .sidebar-footer p {
+    font-size: 12px;
+    color: #aaa;
+  }
+  

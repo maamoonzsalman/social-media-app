@@ -93,6 +93,9 @@ app.use('/register', registerRouter);
 const loginRouter = require('./routes/login');
 app.use('/login', loginRouter)
 
+const homeRouter = require('./routes/home')
+app.use('/home', homeRouter)
+
 app.get('/', (req, res) => {
     res.send('Server is running');
   });

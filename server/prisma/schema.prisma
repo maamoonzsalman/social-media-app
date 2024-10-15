@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,6 +19,10 @@ model User {
   comments  Comment[]
   likes     Like[]
   sessions  Session[] // Add relation to sessions
+
+  // Add fields for following and followers
+  following Follows[] @relation("following")
+  followers Follows[] @relation("followers")
 }
 
 model Post {
@@ -65,4 +63,21 @@ model Session {
   data      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Follow relation table
+model Follows {
+  id            Int    @id @default(autoincrement())
+  
+  // The user who is following another user
+  followerId    Int
+  follower      User   @relation("following", fields: [followerId], references: [id])
+
+  // The user who is being followed
+  followingId   Int
+  following     User   @relation("followers", fields: [followingId], references: [id])
+
+  createdAt     DateTime @default(now())
+
+  @@unique([followerId, followingId]) // Ensure a user can't follow another user more than once
 }

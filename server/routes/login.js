@@ -2,27 +2,22 @@ const express = require('express');
 const passport = require('passport');
 const loginRouter = express.Router();
 
-// Login route
 loginRouter.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      return next(err); // Error during authentication
+      return next(err); // Handle error
     }
     if (!user) {
-      return res.status(401).json({ message: 'Invalid username or password' }); // Authentication failed
+      return res.status(401).json({ message: info.message || 'Invalid credentials' });
     }
-    
     req.logIn(user, (err) => {
       if (err) {
-        return res.status(500).json({ message: 'Error logging in' }); // Error logging in
+        return res.status(500).json({ message: 'Error logging in' });
       }
-      return res.status(200).json({ message: 'Login successful', user: user }); // Successfully logged in
+      // Respond with a success message and the redirect URL
+      return res.status(200).json({ message: 'Login successful', redirectTo: '/home', user: user });
     });
   })(req, res, next);
 });
-
-loginRouter.get('/', (req, res) => {
-    res.send('Server is running');
-  });
 
 module.exports = loginRouter;

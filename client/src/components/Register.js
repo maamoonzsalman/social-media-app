@@ -1,100 +1,92 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-  const [message, setMessage] = useState('');
-
-  // Handle input changes
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
+    
     try {
-      // Send registration data to the server
-      const res = await axios.post('http://localhost:4000/register', formData, {
-        withCredentials: true // This allows cookies/sessions to be sent across origins
-      });
-      
-      setMessage(res.data.message || 'Registration successful!');
-      
+      const response = await axios.post('http://localhost:4000/register', {
+        username,
+        password,
+        email,
+        firstName,
+        lastName
+      }, { withCredentials: true });
+
+      setSuccessMessage(response.data.message);
+      setErrorMessage('');
+      // Redirect the user to /home after successful registration
+      navigate(response.data.redirectTo);
     } catch (error) {
-      console.error(error);
-      setMessage(error.response?.data?.message || 'Registration failed');
+      setSuccessMessage('');
+      setErrorMessage(error.response?.data?.message || 'Registration failed');
     }
   };
 
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleRegister}>
         <div>
           <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+          <input 
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            required 
           />
         </div>
         <div>
           <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
+        </div>
+        <div>
+          <label>Email</label>
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
+        </div>
+        <div>
+          <label>First Name</label>
+          <input 
+            type="text" 
+            value={firstName} 
+            onChange={(e) => setFirstName(e.target.value)} 
+            required 
+          />
+        </div>
+        <div>
+          <label>Last Name</label>
+          <input 
+            type="text" 
+            value={lastName} 
+            onChange={(e) => setLastName(e.target.value)} 
+            required 
           />
         </div>
         <button type="submit">Register</button>
       </form>
-      {message && <p>{message}</p>}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
     </div>
   );
 };
