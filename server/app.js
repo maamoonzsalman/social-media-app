@@ -4,9 +4,7 @@ const session = require('express-session');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
-const { PrismaClient } = require('@prisma/client'); // Prisma, but not using PrismaStore for now
-
-const prisma = new PrismaClient();
+const prisma = require('./prisma/prismaClient')
 const app = express();
 
 // Enable CORS for the frontend
@@ -96,6 +94,9 @@ app.use('/login', loginRouter)
 const homeRouter = require('./routes/home')
 app.use('/home', homeRouter)
 
+const profileRouter = require('./routes/profile')
+app.use('/profile', profileRouter)
+
 app.get('/', (req, res) => {
     res.send('Server is running');
   });
@@ -103,3 +104,5 @@ app.get('/', (req, res) => {
 app.listen(4000, () => {
   console.log('Server started on port 4000');
 });
+
+module.exports = prisma;

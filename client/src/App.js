@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Im
 import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
+import Profile from './components/Profile';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
@@ -14,6 +15,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="profile/:username" element={<Profile />} />
         </Routes>
       </div>
     </Router>

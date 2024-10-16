@@ -31,7 +31,7 @@ const Sidebar = ({ username }) => {
           </Link>
         </li>
         <li>
-          <Link to="/profile">
+          <Link to={`/profile/${username}`}>
             <i className="fas fa-user-circle"></i> Profile
           </Link>
         </li>
