@@ -21,6 +21,15 @@ const FollowingModal = ({ username, onClose }) => {
     fetchFollowing();
   }, [username]);
 
+  const unfollowUser = async (followingUsername) => {
+    try {
+      await axios.delete(`http://localhost:4000/profile/${followingUsername}/unfollow`, { withCredentials: true });
+      setFollowing(following.filter(user => user.username !== followingUsername)); // Update the list after unfollow
+    } catch (error) {
+      setErrorMessage('Error unfollowing user');
+    }
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -40,6 +49,7 @@ const FollowingModal = ({ username, onClose }) => {
                       <img src={user.profilePic || '/default-profile.jpg'} alt={`${user.username}'s profile`} />
                       <span>{user.username}</span>
                     </Link>
+                    <button onClick={() => unfollowUser(user.username)} className="remove-btn">Remove</button>
                   </li>
                 ))
               ) : (
@@ -54,3 +64,4 @@ const FollowingModal = ({ username, onClose }) => {
 };
 
 export default FollowingModal;
+

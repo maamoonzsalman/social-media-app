@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
+import EditProfile from './components/EditProfile'; // Import your new EditProfile component
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="profile/:username" element={<Profile />} />
+          <Route path="profile/:username/edit" element={<EditProfile />} />
         </Routes>
       </div>
     </Router>
