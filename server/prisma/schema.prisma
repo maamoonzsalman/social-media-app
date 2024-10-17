@@ -8,21 +8,23 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  password  String
-  firstName String
-  lastName  String
-  email     String   @unique
-  createdAt DateTime @default(now())
-  posts     Post[]
-  comments  Comment[]
-  likes     Like[]
-  sessions  Session[] // Add relation to sessions
+  id             Int      @id @default(autoincrement())
+  username       String   @unique
+  password       String
+  firstName      String
+  lastName       String
+  email          String   @unique
+  createdAt      DateTime @default(now())
+  profilePic     String?  // Store image URL or file path, optional field
+  bio            String?  // Optional bio field
+  posts          Post[]
+  comments       Comment[]
+  likes          Like[]
+  sessions       Session[]
 
   // Add fields for following and followers
-  following Follows[] @relation("following")
-  followers Follows[] @relation("followers")
+  following      Follows[] @relation("following")
+  followers      Follows[] @relation("followers")
 }
 
 model Post {

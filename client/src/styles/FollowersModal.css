@@ -1,0 +1,81 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Darkened background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Bring modal to the top */
+  }
+  
+  .modal {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 400px; /* Width of the modal */
+    max-width: 90%;
+    max-height: 80%; /* Ensures modal is scrollable within window size */
+    overflow-y: auto; /* Scrollable content */
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    padding: 20px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .follower-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .follower-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  /* Scrollbar styling */
+  .modal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .modal-body::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

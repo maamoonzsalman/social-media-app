@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Sidebar from './Sidebar'; // Import the Sidebar component
 import axios from 'axios';
+import FollowersModal from './FollowersModal'; // Import the FollowersModal component
+import FollowingModal from './FollowingModal'; // Import the FollowingModal component
 import '../styles/Profile.css'; // CSS for styling the profile page
 
 const Profile = () => {
   const { username } = useParams(); // Get the username from the route params
   const [profileData, setProfileData] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
+  const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,6 +25,22 @@ const Profile = () => {
 
     fetchProfile();
   }, [username]);
+
+  const openFollowersModal = () => {
+    setIsFollowersModalOpen(true);
+  };
+
+  const closeFollowersModal = () => {
+    setIsFollowersModalOpen(false);
+  };
+
+  const openFollowingModal = () => {
+    setIsFollowingModalOpen(true);
+  };
+
+  const closeFollowingModal = () => {
+    setIsFollowingModalOpen(false);
+  };
 
   if (!profileData) {
     return <p>{errorMessage || 'Loading profile...'}</p>;
@@ -40,8 +60,12 @@ const Profile = () => {
             <h2>{profileData.username}</h2>
             <div className="profile-stats">
               <span><strong>{profileData.postCount}</strong> posts</span>
-              <span><strong>{profileData.followersCount}</strong> followers</span>
-              <span><strong>{profileData.followingCount}</strong> following</span>
+              <span onClick={openFollowersModal} style={{ cursor: 'pointer' }}>
+                <strong>{profileData.followersCount}</strong> followers
+              </span>
+              <span onClick={openFollowingModal} style={{ cursor: 'pointer' }}>
+                <strong>{profileData.followingCount}</strong> following
+              </span>
             </div>
           </div>
         </div>
@@ -58,6 +82,16 @@ const Profile = () => {
           <p>No posts yet.</p>
         )}
       </div>
+
+      {/* Render the FollowersModal only when the modal is open */}
+      {isFollowersModalOpen && (
+        <FollowersModal username={profileData.username} onClose={closeFollowersModal} />
+      )}
+
+      {/* Render the FollowingModal only when the modal is open */}
+      {isFollowingModalOpen && (
+        <FollowingModal username={profileData.username} onClose={closeFollowingModal} />
+      )}
     </div>
   );
 };
