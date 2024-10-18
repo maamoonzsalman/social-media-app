@@ -186,4 +186,18 @@
     margin-left: 10px; /* Space between the button and username */
   }
 
+  /* Profile.css */
+
+/* Other existing CSS rules... */
+
+/* Settings icon styling */
+.settings-icon {
+    font-size: 18px;
+    color: #ccc; /* or any color that fits your theme */
+    margin-left: 10px;
+  }
+  
+  .settings-icon:hover {
+    color: black; /* Optional hover effect */
+  }
   

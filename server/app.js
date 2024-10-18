@@ -100,6 +100,9 @@ app.use('/home', homeRouter)
 const profileRouter = require('./routes/profile')
 app.use('/profile', profileRouter)
 
+const userRouter = require('./routes/users')
+app.use('/users', userRouter)
+
 
 app.get('/', (req, res) => {
     res.send('Server is running');

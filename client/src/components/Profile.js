@@ -13,56 +13,37 @@ const Profile = () => {
   const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
   const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [isFollowing, setIsFollowing] = useState(false); // Track if the logged-in user is following the profile
+  const [isFollowing, setIsFollowing] = useState(false); // State to track if the user is following this profile
   const navigate = useNavigate();
 
+  // Fetch profile data and check if logged-in user is following this profile
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const profileResponse = await axios.get(`http://localhost:4000/profile/${username}`, { withCredentials: true });
         setProfileData(profileResponse.data);
-
-        // Check if logged-in user is following the profile
-        const isFollowingResponse = await axios.get(`http://localhost:4000/profile/${username}/isFollowing`, { withCredentials: true });
-        setIsFollowing(isFollowingResponse.data.isFollowing);
-
       } catch (error) {
         setErrorMessage('Error loading profile');
       }
 
       try {
         const loggedInUserResponse = await axios.get('http://localhost:4000/home', { withCredentials: true });
-        setLoggedInUser(loggedInUserResponse.data.username);
+        const loggedInUsername = loggedInUserResponse.data.username;
+        setLoggedInUser(loggedInUsername);
+
+        // Check if the logged-in user is following this profile
+        const isFollowingResponse = await axios.get(`http://localhost:4000/profile/${username}/isFollowing`, { withCredentials: true });
+        setIsFollowing(isFollowingResponse.data.isFollowing); // Set the following status
       } catch (error) {
         setLoggedInUser(null);
+        setIsFollowing(false);
       }
     };
 
     fetchProfile();
   }, [username]);
 
-  const handleFollowClick = async () => {
-    try {
-      if (isFollowing) {
-        await axios.delete(`http://localhost:4000/profile/${username}/unfollow`, { withCredentials: true });
-        setProfileData(prevState => ({
-          ...prevState,
-          followersCount: prevState.followersCount - 1
-        }));
-      } else {
-        await axios.post(`http://localhost:4000/profile/${username}/follow`, {}, { withCredentials: true });
-        setProfileData(prevState => ({
-          ...prevState,
-          followersCount: prevState.followersCount + 1
-        }));
-      }
-
-      setIsFollowing(!isFollowing);
-    } catch (error) {
-      console.error('Error following/unfollowing user:', error);
-    }
-  };
-
+  // Open/close modal logic
   const openFollowersModal = () => {
     setIsFollowersModalOpen(true);
   };
@@ -77,6 +58,31 @@ const Profile = () => {
 
   const closeFollowingModal = () => {
     setIsFollowingModalOpen(false);
+  };
+
+  // Handle follow/unfollow logic
+  const handleFollowClick = async () => {
+    try {
+      if (isFollowing) {
+        // If already following, unfollow the user
+        await axios.delete(`http://localhost:4000/profile/${username}/unfollow`, { withCredentials: true });
+        setIsFollowing(false);
+        setProfileData(prevData => ({
+          ...prevData,
+          followersCount: prevData.followersCount - 1
+        }));
+      } else {
+        // If not following, follow the user
+        await axios.post(`http://localhost:4000/profile/${username}/follow`, {}, { withCredentials: true });
+        setIsFollowing(true);
+        setProfileData(prevData => ({
+          ...prevData,
+          followersCount: prevData.followersCount + 1
+        }));
+      }
+    } catch (error) {
+      console.error('Error updating follow status:', error);
+    }
   };
 
   if (!profileData) {
@@ -106,6 +112,7 @@ const Profile = () => {
                 </button>
               )}
 
+              {/* Follow/Unfollow button */}
               {loggedInUser !== profileData.username && (
                 <button className="follow-btn" onClick={handleFollowClick}>
                   {isFollowing ? 'Unfollow' : 'Follow'}
@@ -123,6 +130,7 @@ const Profile = () => {
               </span>
             </div>
 
+            {/* Display bio if it exists */}
             {profileData.bio && <p className="profile-bio">{profileData.bio}</p>}
           </div>
         </div>

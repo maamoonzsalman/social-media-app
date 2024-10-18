@@ -1,0 +1,79 @@
+/* Search.css */
+/* Search.css */
+.search-page {
+    display: flex;
+    background-color: #1c1c1c; /* Dark background like other pages */
+    height: 100vh; /* Ensure it takes up the full height of the page */
+  }
+  
+  .search-container {
+    background-color: #111;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 400px;
+    text-align: center;
+    margin-left: auto; /* Push the search container to the right of the sidebar */
+    margin-right: auto; /* Center the search box */
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+  }
+  
+  .user-list {
+    margin-bottom: 20px;
+  }
+  
+  .user-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .user-profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .user-link:hover {
+    text-decoration: underline;
+  }
+  
+  .back-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .back-btn:hover {
+    background-color: #444;
+  }
+  

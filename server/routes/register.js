@@ -49,6 +49,37 @@ registerRouter.post('/', async (req, res) => {
   }
 });
 
+// Route to delete user account by username
+registerRouter.delete('/:username/delete', async (req, res) => {
+    const { username } = req.params;
+    const loggedInUser = req.user; // Assuming Passport.js handles authentication
+  
+    // Ensure that the logged-in user is the one trying to delete the account
+    if (loggedInUser.username !== username) {
+      return res.status(403).json({ message: 'You can only delete your own account' });
+    }
+  
+    try {
+      // Delete the user account
+      await prisma.user.delete({
+        where: { username }
+      });
+  
+      // Log out the user after account deletion
+      req.logout((err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ message: 'Error logging out after account deletion' });
+        }
+        return res.status(200).json({ message: 'Account deleted successfully', redirectTo: '/register' });
+      });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error deleting account' });
+    }
+  });
+
 registerRouter.get('/', (req, res) => {
     res.send('Server is running');
   });
