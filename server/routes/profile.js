@@ -22,6 +22,7 @@ profileRouter.get('/:username', async (req, res) => {
     res.status(200).json({
       username: user.username,
       profilePicture: user.profilePic, // You'd need to add this field in the User model if needed
+      bio: user.bio,
       postCount: user.posts.length,
       followersCount: user._count.followers,
       followingCount: user._count.following,
@@ -135,13 +136,14 @@ profileRouter.get('/:username/following', async (req, res) => {
 profileRouter.put('/:username/edit', async (req, res) => {
     const { username } = req.params;
     const { bio, profilePic } = req.body;
-  
     try {
       const user = await prisma.user.update({
         where: { username },
         data: { bio, profilePic }
       });
   
+      console.log('this is the user bio', user.bio)
+      console.log(user)
       res.status(200).json({ message: 'Profile updated successfully', user });
     } catch (error) {
       console.error(error);

@@ -45,7 +45,7 @@ const EditProfile = () => {
         <label>Bio:</label>
         <textarea
           name="bio"
-          value={profileData.bio}
+          value={profileData.bio || ''}  // Default to empty string if undefined
           onChange={handleInputChange}
         />
       </div>
@@ -54,7 +54,7 @@ const EditProfile = () => {
         <input
           type="text"
           name="profilePic"
-          value={profileData.profilePic}
+          value={profileData.profilePic || ''}  // Default to empty string if undefined
           onChange={handleInputChange}
         />
       </div>

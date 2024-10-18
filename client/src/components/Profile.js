@@ -4,7 +4,7 @@ import Sidebar from './Sidebar';
 import axios from 'axios';
 import FollowersModal from './FollowersModal';
 import FollowingModal from './FollowingModal';
-import '../styles/Profile.css';
+import '../styles/Profile.css'; // Ensure your CSS is updated accordingly
 
 const Profile = () => {
   const { username } = useParams();
@@ -13,8 +13,6 @@ const Profile = () => {
   const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
   const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const [isFollowing, setIsFollowing] = useState(false); // Track follow status
-  const [loggedInUserFollowingCount, setLoggedInUserFollowingCount] = useState(0); // Track logged-in user's following count
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,14 +27,6 @@ const Profile = () => {
       try {
         const loggedInUserResponse = await axios.get('http://localhost:4000/home', { withCredentials: true });
         setLoggedInUser(loggedInUserResponse.data.username);
-
-        // Fetch the logged-in user's following count
-        const loggedInUserProfileResponse = await axios.get(`http://localhost:4000/profile/${loggedInUserResponse.data.username}`, { withCredentials: true });
-        setLoggedInUserFollowingCount(loggedInUserProfileResponse.data.followingCount);
-
-        // Check if the logged-in user is already following the profile
-        const followStatusResponse = await axios.get(`http://localhost:4000/profile/${username}/isFollowing`, { withCredentials: true });
-        setIsFollowing(followStatusResponse.data.isFollowing);
       } catch (error) {
         setLoggedInUser(null);
       }
@@ -44,36 +34,6 @@ const Profile = () => {
 
     fetchProfile();
   }, [username]);
-
-  const handleFollow = async () => {
-    try {
-      if (isFollowing) {
-        // Unfollow user
-        await axios.delete(`http://localhost:4000/profile/${username}/unfollow`, { withCredentials: true });
-        setIsFollowing(false);
-        setProfileData((prevData) => ({
-          ...prevData,
-          followersCount: prevData.followersCount - 1, // Decrease the other user's followers count
-        }));
-        setLoggedInUserFollowingCount((prevCount) => prevCount - 1); // Decrease logged-in user's following count
-      } else {
-        // Follow user
-        await axios.post(`http://localhost:4000/profile/${username}/follow`, {}, { withCredentials: true });
-        setIsFollowing(true);
-        setProfileData((prevData) => ({
-          ...prevData,
-          followersCount: prevData.followersCount + 1, // Increase the other user's followers count
-        }));
-        setLoggedInUserFollowingCount((prevCount) => prevCount + 1); // Increase logged-in user's following count
-      }
-
-      // After following/unfollowing, fetch the updated logged-in user's following count
-      const loggedInUserProfileResponse = await axios.get(`http://localhost:4000/profile/${loggedInUser}`, { withCredentials: true });
-      setLoggedInUserFollowingCount(loggedInUserProfileResponse.data.followingCount); // Update the following count for the logged-in user
-    } catch (error) {
-      console.error('Error following/unfollowing the user', error);
-    }
-  };
 
   const openFollowersModal = () => {
     setIsFollowersModalOpen(true);
@@ -109,20 +69,18 @@ const Profile = () => {
             <div className="profile-header-top">
               <h2>{profileData.username}</h2>
 
-              {loggedInUser === profileData.username ? (
+              {loggedInUser === profileData.username && (
                 <button
                   className="edit-profile-btn"
                   onClick={() => navigate(`/profile/${username}/edit`)}
                 >
                   Edit Profile
                 </button>
-              ) : (
-                <button
-                  className="edit-profile-btn"
-                  onClick={handleFollow}
-                >
-                  {isFollowing ? 'Following' : 'Follow'}
-                </button>
+              )}
+
+              {/* If the profile is not the logged-in user's profile, show Follow button */}
+              {loggedInUser !== profileData.username && (
+                <button className="follow-btn">Follow</button>
               )}
             </div>
 
@@ -131,16 +89,13 @@ const Profile = () => {
               <span onClick={openFollowersModal} style={{ cursor: 'pointer' }}>
                 <strong>{profileData.followersCount}</strong> followers
               </span>
-              {loggedInUser === profileData.username ? (
-                <span onClick={openFollowingModal} style={{ cursor: 'pointer' }}>
-                  <strong>{loggedInUserFollowingCount}</strong> following
-                </span>
-              ) : (
-                <span style={{ cursor: 'pointer' }}>
-                  <strong>{profileData.followingCount}</strong> following
-                </span>
-              )}
+              <span onClick={openFollowingModal} style={{ cursor: 'pointer' }}>
+                <strong>{profileData.followingCount}</strong> following
+              </span>
             </div>
+
+            {/* Display bio if it exists */}
+            {profileData.bio && <p className="profile-bio">{profileData.bio}</p>}
           </div>
         </div>
 

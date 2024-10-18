@@ -15,7 +15,7 @@ model User {
   lastName       String
   email          String   @unique
   createdAt      DateTime @default(now())
-  profilePic     String?  // Store image URL or file path, optional field
+  profilePic     String?  @default("https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y") // Default profile picture URL
   bio            String?  // Optional bio field
   posts          Post[]
   comments       Comment[]
