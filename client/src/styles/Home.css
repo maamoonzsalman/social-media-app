@@ -1,0 +1,13 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 600px; /* You can adjust this value */
+    flex-grow: 1;
+  }
+  

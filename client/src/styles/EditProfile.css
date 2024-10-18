@@ -1,0 +1,57 @@
+/* Center the form on the page */
+.edit-profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    background-color: #1a1a1a; /* Dark background */
+  }
+  
+  /* Form container */
+  .edit-profile-container {
+    background-color: black; /* Dark background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    width: 400px;
+    text-align: center;
+  }
+  
+  /* Form elements */
+  .edit-profile-container h2 {
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .edit-profile-container label {
+    color: white;
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  .edit-profile-container input,
+  .edit-profile-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: black; /* Dark input background */
+    color: white; /* White text color */
+  }
+  
+  /* Button styling */
+  .edit-profile-container button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-profile-container button:hover {
+    background-color: forestgreen;
+  }
+  

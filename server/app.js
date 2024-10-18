@@ -91,11 +91,15 @@ app.use('/register', registerRouter);
 const loginRouter = require('./routes/login');
 app.use('/login', loginRouter)
 
+const logoutRouter = require('./routes/logout');
+app.use('/logout', logoutRouter)
+
 const homeRouter = require('./routes/home')
 app.use('/home', homeRouter)
 
 const profileRouter = require('./routes/profile')
 app.use('/profile', profileRouter)
+
 
 app.get('/', (req, res) => {
     res.send('Server is running');

@@ -1,0 +1,44 @@
+/* Suggested Sidebar */
+/* SuggestedSidebar.css */
+.suggested-sidebar {
+    width: 250px;
+    background-color: #111;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .suggested-sidebar h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: white;
+  }
+  
+  .suggested-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .suggested-user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .suggested-user a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .suggested-user a:hover {
+    color: #1da1f2;
+  }
+  

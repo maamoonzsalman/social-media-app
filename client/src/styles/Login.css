@@ -1,0 +1,86 @@
+/* Login.css */
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1c; /* Dark background like EditProfile */
+}
+
+.login-container {
+    background-color: #111;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+    color: white; /* White text color */
+    width: 400px; /* Same width as Edit Profile */
+    text-align: center;
+    
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+}
+
+.login-container input::placeholder {
+    color: #888;
+}
+
+.login-container button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px; /* Added margin to match spacing with inputs */
+    margin-top: 20px; /* Same margin as inputs */
+
+}
+
+.login-container button:hover {
+    background-color: #444;
+}
+
+.login-container p {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 0;
+    
+}
+
+/* Add this at the end of Login.css */
+.register-btn {
+    padding: 10px;
+    background-color: #333; /* Same color as other buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px; /* Same margin as inputs */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.register-btn:hover {
+    background-color: #444;
+}

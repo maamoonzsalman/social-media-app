@@ -57,3 +57,22 @@
     color: #aaa;
   }
   
+  /* Sidebar.css */
+.logout-btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.logout-btn i {
+  margin-right: 10px;
+}
+
+.logout-btn:hover {
+  color: #1da1f2; /* Add a hover effect */
+}

@@ -13,6 +13,7 @@ const Profile = () => {
   const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
   const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false); // Track if the logged-in user is following the profile
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,11 @@ const Profile = () => {
       try {
         const profileResponse = await axios.get(`http://localhost:4000/profile/${username}`, { withCredentials: true });
         setProfileData(profileResponse.data);
+
+        // Check if logged-in user is following the profile
+        const isFollowingResponse = await axios.get(`http://localhost:4000/profile/${username}/isFollowing`, { withCredentials: true });
+        setIsFollowing(isFollowingResponse.data.isFollowing);
+
       } catch (error) {
         setErrorMessage('Error loading profile');
       }
@@ -34,6 +40,28 @@ const Profile = () => {
 
     fetchProfile();
   }, [username]);
+
+  const handleFollowClick = async () => {
+    try {
+      if (isFollowing) {
+        await axios.delete(`http://localhost:4000/profile/${username}/unfollow`, { withCredentials: true });
+        setProfileData(prevState => ({
+          ...prevState,
+          followersCount: prevState.followersCount - 1
+        }));
+      } else {
+        await axios.post(`http://localhost:4000/profile/${username}/follow`, {}, { withCredentials: true });
+        setProfileData(prevState => ({
+          ...prevState,
+          followersCount: prevState.followersCount + 1
+        }));
+      }
+
+      setIsFollowing(!isFollowing);
+    } catch (error) {
+      console.error('Error following/unfollowing user:', error);
+    }
+  };
 
   const openFollowersModal = () => {
     setIsFollowersModalOpen(true);
@@ -78,9 +106,10 @@ const Profile = () => {
                 </button>
               )}
 
-              {/* If the profile is not the logged-in user's profile, show Follow button */}
               {loggedInUser !== profileData.username && (
-                <button className="follow-btn">Follow</button>
+                <button className="follow-btn" onClick={handleFollowClick}>
+                  {isFollowing ? 'Unfollow' : 'Follow'}
+                </button>
               )}
             </div>
 
@@ -94,7 +123,6 @@ const Profile = () => {
               </span>
             </div>
 
-            {/* Display bio if it exists */}
             {profileData.bio && <p className="profile-bio">{profileData.bio}</p>}
           </div>
         </div>
