@@ -25,8 +25,7 @@ function App() {
           <Route path="profile/:username/settings" element={<Settings />} />
           <Route path="/search" element={<Search />} />
           <Route path="/notifications" element={<Notifications />} />
-          <Route path="/Create" element={<Notifications />} />
-
+          <Route path="/create" element={<Create />} />
         </Routes>
       </div>
     </Router>

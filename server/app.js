@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const prisma = require('./prisma/prismaClient')
 const app = express();
+const path = require('path');
+
 
 // Enable CORS for the frontend
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -102,6 +104,11 @@ app.use('/profile', profileRouter)
 
 const userRouter = require('./routes/users')
 app.use('/users', userRouter)
+
+const uploadRouter = require('./routes/upload'); // Adjust the path to where upload.js is located
+app.use('/upload', uploadRouter)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 
 app.get('/', (req, res) => {

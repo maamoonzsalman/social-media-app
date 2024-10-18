@@ -1,15 +1,15 @@
 .settings-page {
     text-align: center;
     margin-top: 100px;
-  }
-  
-  .settings-page h2 {
+}
+
+.settings-page h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
-  }
-  
-  .back-btn, .delete-btn {
+}
+
+.back-btn, .delete-btn {
     padding: 10px 20px;
     margin: 10px;
     background-color: #333;
@@ -18,17 +18,18 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .back-btn:hover, .delete-btn:hover {
+    display: inline-block; /* Ensure buttons only take up necessary space */
+    max-width: 150px; /* Set a max width to prevent buttons from stretching too wide */
+}
+
+.back-btn:hover, .delete-btn:hover {
     background-color: #444;
-  }
-  
-  .delete-btn {
+}
+
+.delete-btn {
     background-color: #d9534f; /* Red for the delete button */
-  }
-  
-  .delete-btn:hover {
+}
+
+.delete-btn:hover {
     background-color: #c9302c;
-  }
-  
+}

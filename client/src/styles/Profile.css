@@ -1,21 +1,27 @@
 /* Profile Page */
 .profile-page {
     display: flex;
+    min-height: 100vh; /* Ensure it takes the full height of the viewport */
   }
   
-  /* Profile Header Section */
-  .profile-header {
+  /* Sidebar Styling */
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #111;
+    color: #fff;
+    padding: 20px;
     display: flex;
-    justify-content: flex-start; /* Align content to the start */
-    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; /* Keep the sidebar part of the flow */
+    flex-shrink: 0; /* Prevent shrinking of the sidebar */
   }
   
-  /* Bio Styling */
-  .profile-bio {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #666; /* You can adjust this color as per your design */
-    max-width: 300px; /* Optional: set a max width if you want */
+  /* Profile Content Section */
+  .profile-content {
+    padding: 20px;
+    flex-grow: 1; /* Ensure the profile content takes up the remaining space */
   }
   
   /* Profile Info Styling */
@@ -67,11 +73,6 @@
   
   .profile-stats span {
     cursor: pointer; /* Make it clear these are clickable */
-  }
-  
-  /* Profile Content Section */
-  .profile-content {
-    padding: 20px;
   }
   
   /* Profile Posts Grid */
@@ -175,7 +176,8 @@
   .following-info span {
     font-size: 16px;
   }
-
+  
+  /* Follow Button */
   .follow-btn {
     padding: 8px 16px;
     background-color: #333;
@@ -183,15 +185,11 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px; /* Space between the button and username */
+    margin-left: 10px;
   }
-
-  /* Profile.css */
-
-/* Other existing CSS rules... */
-
-/* Settings icon styling */
-.settings-icon {
+  
+  /* Settings icon styling */
+  .settings-icon {
     font-size: 18px;
     color: #ccc; /* or any color that fits your theme */
     margin-left: 10px;
@@ -200,4 +198,45 @@
   .settings-icon:hover {
     color: black; /* Optional hover effect */
   }
+
+/* Profile Posts Grid */
+/* Profile Posts Grid */
+.profile-posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Gap between posts */
+    margin-top: 20px;
+    max-width: 1200px; /* Max width for larger screens */
+    margin-left: auto; /* Center the grid */
+    margin-right: auto; /* Center the grid */
+  }
+  
+  /* Individual Post Styling */
+  .post {
+    width: 100%; /* Ensure post takes up full grid width */
+    height: auto; /* Set to auto initially */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Set equal height and width for the images inside the posts */
+  .post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    aspect-ratio: 1 / 1; /* Ensure images are square */
+  }
+  
+  /* Ensure profile content doesn't get too wide */
+  .profile-content {
+    padding: 20px;
+    max-width: 1200px; /* Max width to match the grid */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  
+  
   

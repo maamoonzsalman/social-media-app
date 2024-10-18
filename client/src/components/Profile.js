@@ -5,6 +5,7 @@ import axios from 'axios';
 import FollowersModal from './FollowersModal';
 import FollowingModal from './FollowingModal';
 import '../styles/Profile.css'; // Ensure your CSS is updated accordingly
+import { FaCog } from 'react-icons/fa'; // Import settings icon
 
 const Profile = () => {
   const { username } = useParams();
@@ -85,6 +86,11 @@ const Profile = () => {
     }
   };
 
+  // Redirect to individual post page
+  const handlePostClick = (postId) => {
+    navigate(`/profile/${username}/${postId}`);
+  };
+
   if (!profileData) {
     return <p>{errorMessage || 'Loading profile...'}</p>;
   }
@@ -104,12 +110,21 @@ const Profile = () => {
               <h2>{profileData.username}</h2>
 
               {loggedInUser === profileData.username && (
-                <button
-                  className="edit-profile-btn"
-                  onClick={() => navigate(`/profile/${username}/edit`)}
-                >
-                  Edit Profile
-                </button>
+                <>
+                  <button
+                    className="edit-profile-btn"
+                    onClick={() => navigate(`/profile/${username}/edit`)}
+                  >
+                    Edit Profile
+                  </button>
+
+                  {/* Add the settings icon next to the Edit Profile button */}
+                  <FaCog
+                    className="settings-icon"
+                    onClick={() => navigate(`/profile/${username}/settings`)}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </>
               )}
 
               {/* Follow/Unfollow button */}
@@ -138,7 +153,12 @@ const Profile = () => {
         {profileData.posts.length > 0 ? (
           <div className="profile-posts">
             {profileData.posts.map(post => (
-              <div key={post.id} className="post">
+              <div
+                key={post.id}
+                className="post"
+                onClick={() => handlePostClick(post.id)} // Redirect to individual post page
+                style={{ cursor: 'pointer' }}
+              >
                 <img src={post.image} alt="Post" />
               </div>
             ))}
